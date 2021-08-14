@@ -55,5 +55,8 @@
     "moduleNameMapper": {
       "^@/(.+)": "<rootDir>/src/$1"
     }
+  },
+  "dependencies": {
+    "webextension-polyfill-ts": "^0.26.0"
   }
 }
