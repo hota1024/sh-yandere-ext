@@ -57,6 +57,7 @@
     }
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "webextension-polyfill-ts": "^0.26.0"
   }
 }
