@@ -1,0 +1,13 @@
+{
+
+  "manifest_version": 2,
+  "name": "sh-yandere",
+  "version": "1.0",
+  "description": "Adds a solid red border to all webpages matching mozilla.org.",
+  "content_scripts": [
+    {
+      "matches": ["*://*.twitter.com/*"],
+      "js": ["dist/cjs/index.js"]
+    }
+  ]
+}
