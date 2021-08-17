@@ -7,7 +7,14 @@
   "content_scripts": [
     {
       "matches": ["*://*.twitter.com/*"],
-      "js": ["dist/cjs/index.js"]
+      "js": ["dist/cjs/index.js"],
+			"run_at": "document_end"
     }
+  ],
+	"permissions": [
+    "tabs",
+    "activeTab",
+    "background",
+    "http://localhost:8080"
   ]
 }
