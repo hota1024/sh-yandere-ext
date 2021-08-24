@@ -1,7 +1,7 @@
 {
 
   "manifest_version": 2,
-  "name": "sh-yandere",
+  "name": "Yanderetter",
   "version": "1.0",
   "description": "Adds a solid red border to all webpages matching mozilla.org.",
   "content_scripts": [
@@ -15,6 +15,7 @@
     "tabs",
     "activeTab",
     "background",
-    "http://localhost:8080"
+		"webRequest",
+    "*://*/*"
   ]
 }
