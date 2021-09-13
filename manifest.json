@@ -11,8 +11,12 @@
 			"run_at": "document_end"
     }
   ],
+  "options_ui": {
+    "page": "src/ui/ui.html"
+  },
 	"permissions": [
     "tabs",
+    "storage",
     "activeTab",
     "background",
 		"webRequest",
