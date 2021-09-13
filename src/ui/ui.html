@@ -1,80 +1,12 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Yanderetter</title>
-
-	<style>
-		html, body {
-			margin :0;
-			padding: 0;
-
-			width: 100vw;
-			height: 100vh;
-
-			background: #e43535;
-		}
-
-		* {
-			box-sizing: border-box;
-		}
-
-		.container {
-			width: 100vw;
-			height: 100vh;
-
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.content {
-			max-width: 600px;
-			width: 100%;
-			padding: 1rem;
-
-			border-radius: 4px;
-
-			background: white;
-		}
-
-		.form-item {
-			margin-bottom: 16px;
-		}
-
-		label {
-			display: block;
-			font-size: 1.2rem;
-			margin-bottom: 2px;
-		}
-
-		input {
-			display: block;
-			border: none;
-			border-radius: 4px;
-			font-size: 1rem;
-			padding: 8px;
-			outline: none;
-			height: 32px;
-			background: rgba(0, 0, 0, 0.2);
-		}
-	</style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yandere</title>
 </head>
 <body>
-	<div class="container">
-		<div class="content">
-			<h2>Yanderetter</h2>
-			<div class="form-item">
-				<label for="api-endpoint">API Endpoint</label>
-				<input id="api-endpoint" data-key="api-endpoint" />
-			</div>
-
-			<pre><code id="log"></code></pre>
-		</div>
-	</div>
-
-	<script src="/dist/cjs/ui.js"></script>
+  <script src="../dist/ui/js"></script>
 </body>
 </html>
