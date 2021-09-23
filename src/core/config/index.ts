@@ -1,5 +1,7 @@
-import { browser } from '../browser'
+import { Browser } from 'webextension-polyfill-ts'
 import { Config } from './Config'
+
+declare const browser: Browser
 
 export * from './Config'
 export * from './ConfigData'
