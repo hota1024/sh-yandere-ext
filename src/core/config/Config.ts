@@ -36,6 +36,11 @@ export class Config {
   async get(): Promise<ConfigData> {
     const { config } = await this.storage.local.get(this.storageKey)
 
+    await this.set({
+      ...this.defaults(),
+      ...config,
+    })
+
     return config
   }
 
