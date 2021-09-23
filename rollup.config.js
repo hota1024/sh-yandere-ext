@@ -1,7 +1,10 @@
 import ts from '@wessberg/rollup-plugin-ts'
+import resolve from '@rollup/plugin-node-resolve'
+import babel from '@rollup/plugin-babel'
+import commonjs from '@rollup/plugin-commonjs'
 import pkg from './package.json'
 import eslint from '@rollup/plugin-eslint'
-import html from 'rollup-plugin-html'
+import replace from '@rollup/plugin-replace'
 import { builtinModules } from 'module'
 
 const external = [
@@ -39,16 +42,29 @@ export default [
     external,
   },
   {
-    input: 'src/ui/ui.ts',
+    input: 'src/ui/ui.tsx',
     output: [
       {
         file: 'dist/ui/ui.js',
         format: 'iife',
-        name: 'YandereUI',
         sourcemap: true,
       },
     ],
-    plugins: [eslint(), ts(), html({ include: 'src/ui/**/*.html' })],
-    external,
+    plugins: [
+      eslint(),
+      resolve({
+        extensions: ['.js'],
+      }),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production'),
+        preventAssignment: true,
+      }),
+      ts(),
+      babel({
+        presets: ['@babel/preset-react'],
+        babelHelpers: 'bundled',
+      }),
+      commonjs(),
+    ],
   },
 ]
