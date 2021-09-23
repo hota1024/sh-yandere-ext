@@ -62,6 +62,7 @@ export default [
       ts(),
       babel({
         presets: ['@babel/preset-react'],
+        plugins: ['babel-plugin-styled-components'],
         babelHelpers: 'bundled',
       }),
       commonjs(),
