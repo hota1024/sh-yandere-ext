@@ -18,9 +18,16 @@ export class Config {
    * reset config.
    */
   async reset(): Promise<void> {
-    this.set({
+    this.set(this.defaults())
+  }
+
+  /**
+   * returns config default items.
+   */
+  defaults(): ConfigData {
+    return {
       apiEndpoint: 'http://localhost:8080',
-    })
+    }
   }
 
   /**
