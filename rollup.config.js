@@ -16,6 +16,19 @@ const external = [
 
 export default [
   {
+    input: 'src/background/background.ts',
+    output: [
+      {
+        file: 'dist/background/background.js',
+        format: 'iife',
+        name: 'YandereBackground',
+        sourcemap: true,
+      },
+    ],
+    plugins: [eslint(), ts()],
+    external,
+  },
+  {
     input: 'src/twitter/twitter.ts',
     output: [
       {

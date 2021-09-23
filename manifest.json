@@ -7,10 +7,13 @@
   "content_scripts": [
     {
       "matches": ["*://*.twitter.com/*"],
-      "js": ["dist/cjs/index.js"],
+      "js": ["dist/twitter/twitter.js"],
 			"run_at": "document_end"
     }
   ],
+  "background": {
+    "scripts": ["dist/background/background.js"]
+  },
   "options_ui": {
     "page": "src/ui/ui.html"
   },
