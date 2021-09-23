@@ -1,4 +1,5 @@
 import type { Storage } from 'webextension-polyfill-ts'
+import { ConfigDataKey } from '.'
 import { ConfigData } from './ConfigData'
 
 /**
@@ -34,12 +35,12 @@ export class Config {
    * returns config.
    */
   async get(): Promise<ConfigData> {
-    const { config } = await this.storage.local.get(this.storageKey)
+    const { config } = await this.storage.local.get()
+    const defaults = this.defaults()
 
-    await this.set({
-      ...this.defaults(),
-      ...config,
-    })
+    for (const [key, value] of Object.entries(config)) {
+      config[key] = value ?? defaults[key as ConfigDataKey]
+    }
 
     return config
   }
