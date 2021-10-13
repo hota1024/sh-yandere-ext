@@ -12,10 +12,10 @@ export class API {
   constructor(private readonly config: Config) {}
 
   /**
-   * returns progress.
+   * fetch progress.
    */
-  async progress(): Promise<number> {
-    const { progress } = await this.get<{ progress: number }>('progress')
+  async getProgress(): Promise<number> {
+    const { progress } = await this.get<{ progress: number }>('/task/progress')
 
     return progress
   }
