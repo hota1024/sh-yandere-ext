@@ -27,7 +27,7 @@ export class Config {
    */
   defaults(): ConfigData {
     return {
-      apiEndpoint: 'http://localhost:8080',
+      apiEndpoint: 'http://localhost:8080/',
     }
   }
 
@@ -35,11 +35,11 @@ export class Config {
    * returns config.
    */
   async get(): Promise<ConfigData> {
-    const { config } = await this.storage.local.get()
+    const config = await this.getConfigData()
     const defaults = this.defaults()
 
     for (const [key, value] of Object.entries(config)) {
-      config[key] = value ?? defaults[key as ConfigDataKey]
+      config[key as ConfigDataKey] = value ?? defaults[key as ConfigDataKey]
     }
 
     return config
@@ -59,5 +59,14 @@ export class Config {
         ...data,
       },
     })
+  }
+
+  /**
+   * returns local storage config data.
+   */
+  private async getConfigData(): Promise<ConfigData> {
+    const { config } = await this.storage.local.get()
+
+    return config ?? this.defaults()
   }
 }
