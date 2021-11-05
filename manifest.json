@@ -9,6 +9,11 @@
       "matches": ["*://*.twitter.com/*"],
       "js": ["dist/twitter/twitter.js"],
 			"run_at": "document_end"
+    },
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["dist/youtube/youtube.js"],
+			"run_at": "document_end"
     }
   ],
   "background": {
