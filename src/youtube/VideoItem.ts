@@ -38,7 +38,6 @@ export class VideoItem {
    * @param name channel name.
    */
   setChannelName(name: string): void {
-    console.log(this.channelName())
     this.channelName().innerText = name
   }
 
