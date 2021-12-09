@@ -55,6 +55,19 @@ export default [
     external,
   },
   {
+    input: 'src/youtube/youtube.ts',
+    output: [
+      {
+        file: 'dist/youtube/youtube.js',
+        format: 'iife',
+        name: 'Yanderegram',
+        sourcemap: true,
+      },
+    ],
+    plugins: [eslint(), ts()],
+    external,
+  },
+  {
     input: 'src/ui/ui.tsx',
     output: [
       {
