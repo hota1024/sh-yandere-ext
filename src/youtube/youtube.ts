@@ -1,26 +1,22 @@
+import { VideoItem } from './VideoItem'
+
 setTimeout(() => {
-  const item = document.querySelector('ytd-rich-item-renderer')
+  // const items = document.querySelectorAll<HTMLElement>('ytd-rich-item-renderer')
+  const items = [document.querySelector<HTMLElement>('ytd-rich-item-renderer')]
 
-  if (!item) {
-    return
-  }
+  for (const item of items) {
+    if (!item) {
+      return
+    }
 
-  const thumbnail = item.querySelector<HTMLImageElement>('#img')
-
-  if (thumbnail) {
-    thumbnail.src =
-      'https://2.bp.blogspot.com/-D2VpG7TwfyE/W64Dti8W-DI/AAAAAAABPI8/p1sqGz68DrgupVX1SLLdhgsP7AWstBhXgCLcBGAs/s800/mental_yandere_woman.png'
-  }
-
-  const title = item.querySelector<HTMLElement>('#video-title-link')
-  console.log(title)
-
-  if (title) {
-    const text = document.createElement('div')
-    text.innerText = ''
-    text.className = 'style-scope ytd-rich-grid-media'
-    text.innerText = 'ゲームの動画はあなたを邪魔しちゃうから消しておいたよ。'
-
-    title.appendChild(text)
+    const v = new VideoItem(item)
+    console.log(v)
+    const yandereImage = browser.runtime.getURL('assets/yandere.png')
+    v.setThumbnailURL(yandereImage)
+    v.setTitle('ゲームの動画はあなたを邪魔しちゃうから消しておいたよ。')
+    v.setChannelName('ヤンデレちゃん')
+    v.setAvatarURL(yandereImage)
+    v.removeOverlays()
+    v.removeMetadata()
   }
 }, 5000)
