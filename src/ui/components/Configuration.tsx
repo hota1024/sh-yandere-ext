@@ -26,7 +26,9 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
   const [apiEndpoint, setApiEndpoint] = useState('')
   const [jwt, setJWT] = useState<string>()
   const [showJWT, setShowJWT] = useState(false)
-  const username = jwt ? decodeJWT(jwt).name : null
+  const { name: username, uid } = jwt
+    ? decodeJWT(jwt)
+    : { name: null, uid: null }
 
   const loadConfig = async () => {
     const data = await config.get()
@@ -99,9 +101,14 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
                   {showJWT ? 'JWT を隠す' : 'JWT を表示する'}
                 </Button>
                 {showJWT && (
-                  <p>
-                    JWT: <input value={jwt} readOnly />
-                  </p>
+                  <>
+                    <p>
+                      JWT: <input value={jwt} readOnly />
+                    </p>
+                    <p>
+                      uid: <input value={uid ?? 'no id'} readOnly />
+                    </p>
+                  </>
                 )}
               </div>
               <div style={{ height: '8px' }}></div>
