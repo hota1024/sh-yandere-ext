@@ -29,6 +29,12 @@ export class API {
     return url
   }
 
+  async authWithCode(code: string): Promise<string> {
+    const data = await this.post<string>('googletask/auth', { code })
+
+    return data
+  }
+
   /**
    * get request.
    *
