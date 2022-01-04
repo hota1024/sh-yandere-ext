@@ -3,9 +3,10 @@
  */
 export type ConfigData = {
   apiEndpoint: string
+  jwt: string
 }
 
 /**
  * ConfigDataKey type.
  */
-export type ConfigDataKey = keyof ConfigData
+export type ConfigDataKey = keyof Required<ConfigData>

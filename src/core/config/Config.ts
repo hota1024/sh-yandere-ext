@@ -28,6 +28,7 @@ export class Config {
   defaults(): ConfigData {
     return {
       apiEndpoint: 'http://localhost:8080/',
+      jwt: '',
     }
   }
 
