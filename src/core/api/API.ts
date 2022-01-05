@@ -1,4 +1,5 @@
 import { Config } from '../config'
+import { decodeJWT } from '../decodeJWT'
 
 /**
  * API class.
@@ -15,7 +16,16 @@ export class API {
    * fetch progress.
    */
   async getProgress(): Promise<number> {
-    const { progress } = await this.get<{ progress: number }>('task/progress')
+    const config = await this.config.get()
+
+    if (!config.jwt) {
+      return 0
+    }
+
+    const id = decodeJWT(config.jwt).uid
+    const { progress } = await this.get<{ progress: number }>(
+      `googletask/progress?uid=${id}`
+    )
 
     return progress
   }
