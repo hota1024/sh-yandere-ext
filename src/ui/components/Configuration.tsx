@@ -24,11 +24,9 @@ export type ConfigurationProps = {
 export const Configuration: React.VFC<ConfigurationProps> = (props) => {
   const { config } = props
   const [apiEndpoint, setApiEndpoint] = useState('')
-  const [jwt, setJWT] = useState<string>()
+  const [jwt, setJWT] = useState<string>('')
   const [showJWT, setShowJWT] = useState(false)
-  const { name: username, uid } = jwt
-    ? decodeJWT(jwt)
-    : { name: null, uid: null }
+  const { uid } = jwt ? decodeJWT(jwt) : { uid: null }
 
   const loadConfig = async () => {
     const data = await config.get()
@@ -49,7 +47,7 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
   }, [jwt])
 
   const logout = () => {
-    if (confirm(`${username} をログアウトしますか？`)) {
+    if (confirm(`${name} をログアウトしますか？`)) {
       setJWT('')
       alert('ログアウトしました。')
     }
@@ -77,6 +75,7 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
 
     if (jwt) {
       setJWT(jwt)
+      console.log(decodeJWT(jwt))
     }
   }
 
@@ -94,7 +93,7 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
         {jwt ? (
           <>
             <Alert>
-              {username} としてログインしています。
+              {name} としてログインしています。
               <div style={{ height: '8px' }}></div>
               <div>
                 <Button onClick={() => setShowJWT(!showJWT)}>
