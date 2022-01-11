@@ -29,6 +29,7 @@ export class Config {
     return {
       apiEndpoint: 'http://localhost:8080/',
       jwt: '',
+      payload: {},
     }
   }
 
@@ -40,7 +41,8 @@ export class Config {
     const defaults = this.defaults()
 
     for (const [key, value] of Object.entries(config)) {
-      config[key as ConfigDataKey] = value ?? defaults[key as ConfigDataKey]
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      config[key as ConfigDataKey] = (value ?? (defaults as any)[key]) as any
     }
 
     return config
@@ -54,12 +56,14 @@ export class Config {
   async set(data: Partial<ConfigData>): Promise<void> {
     const config = await this.get()
 
+    console.log('saving', data)
     await this.storage.local.set({
       [this.storageKey]: {
         ...config,
         ...data,
       },
     })
+    console.log('saved', await this.storage.local.get())
   }
 
   /**
