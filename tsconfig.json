@@ -4,7 +4,7 @@
 		"strict": true,
 		"target": "es2017",
 		"module": "CommonJS",
-		"declaration": true,
+		// "declaration": true,
 		"alwaysStrict": true,
 		"allowSyntheticDefaultImports": true,
 		"esModuleInterop": true,

@@ -8,6 +8,29 @@ import { api } from '@/core/api'
 import { Alert } from './Alert'
 import { decodeJWT } from '@/core/decodeJWT'
 
+const openLoginModal = async () => {
+  alert(
+    `このアラートを閉じると Google アカウントのログイン画面が開かれます。以下の手順に従いログインを行ってください。
+1. ログインするアカウントを選択するか、認証情報を入力してください。
+2. アクセス権の確認画面が出てきたら「すべてのタスクの作成、編集、整理、削除」にチェックを入れてください。
+3. ログインが完了した後、認証するために必要なコードが表示されます。コピーして現在開いているページに貼り付けてください。`
+  )
+
+  const url = await api.issueAuthURL()
+  window.open(url, '_blank')
+
+  const code = prompt('認証コードをペーストしてください。')
+
+  if (!code) {
+    alert('認証コードが入力されていません。再度お試しください。')
+    return
+  }
+
+  const jwt = await api.authWithCode(code)
+
+  return jwt
+}
+
 /**
  * Configuration props.
  */
@@ -26,7 +49,10 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
   const [apiEndpoint, setApiEndpoint] = useState('')
   const [jwt, setJWT] = useState<string>('')
   const [showJWT, setShowJWT] = useState(false)
-  const { uid } = jwt ? decodeJWT(jwt) : { uid: null }
+
+  const payload = decodeJWT(jwt)
+  const uid = payload?.user.uid
+  const name = payload?.user.familyname
 
   const loadConfig = async () => {
     const data = await config.get()
@@ -54,28 +80,10 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
   }
 
   const openLogin = async () => {
-    alert(
-      `このアラートを閉じると Google アカウントのログイン画面が開かれます。以下の手順に従いログインを行ってください。
-1. ログインするアカウントを選択するか、認証情報を入力してください。
-2. アクセス権の確認画面が出てきたら「すべてのタスクの作成、編集、整理、削除」にチェックを入れてください。
-3. ログインが完了した後、認証するために必要なコードが表示されます。コピーして現在開いているページに貼り付けてください。`
-    )
-
-    const url = await api.issueAuthURL()
-    window.open(url, '_blank')
-
-    const code = prompt('認証コードをペーストしてください。')
-
-    if (!code) {
-      alert('認証コードが入力されていません。再度お試しください。')
-      return
-    }
-
-    const jwt = await api.authWithCode(code)
+    const jwt = await openLoginModal()
 
     if (jwt) {
       setJWT(jwt)
-      console.log(decodeJWT(jwt))
     }
   }
 
@@ -102,7 +110,7 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
                 {showJWT && (
                   <>
                     <p>
-                      JWT: <input value={jwt} readOnly />
+                      JWT: <input value={jwt ?? 'no jwt'} readOnly />
                     </p>
                     <p>
                       uid: <input value={uid ?? 'no id'} readOnly />

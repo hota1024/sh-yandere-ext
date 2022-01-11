@@ -22,7 +22,11 @@ export class API {
       return 0
     }
 
-    const id = decodeJWT(config.jwt).uid
+    const payload = decodeJWT(config.jwt)
+    if (!payload) {
+      throw new Error('invalid jwt')
+    }
+    const id = payload.user.uid
     const { progress } = await this.get<{ progress: number }>(
       `googletask/progress?uid=${id}`
     )

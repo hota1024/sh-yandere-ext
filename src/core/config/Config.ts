@@ -29,7 +29,6 @@ export class Config {
     return {
       apiEndpoint: 'http://localhost:8080/',
       jwt: '',
-      payload: {},
     }
   }
 
@@ -56,14 +55,12 @@ export class Config {
   async set(data: Partial<ConfigData>): Promise<void> {
     const config = await this.get()
 
-    console.log('saving', data)
     await this.storage.local.set({
       [this.storageKey]: {
         ...config,
         ...data,
       },
     })
-    console.log('saved', await this.storage.local.get())
   }
 
   /**

@@ -9,10 +9,15 @@ import { builtinModules } from 'module'
 
 const external = [
   ...builtinModules,
-  ...(pkg.dependencies == null ? [] : Object.keys(pkg.dependencies)),
+  // ...(pkg.dependencies == null ? [] : Object.keys(pkg.dependencies)),
   ...(pkg.devDependencies == null ? [] : Object.keys(pkg.devDependencies)),
-  ...(pkg.peerDependencies == null ? [] : Object.keys(pkg.peerDependencies)),
+  // ...(pkg.peerDependencies == null ? [] : Object.keys(pkg.peerDependencies)),
 ]
+
+const globals = {
+  'jwt-decode': 'decode',
+  axios: 'axios',
+}
 
 export default [
   {
@@ -23,9 +28,18 @@ export default [
         format: 'iife',
         name: 'YandereBackground',
         sourcemap: true,
+        globals,
       },
     ],
-    plugins: [eslint(), ts()],
+    plugins: [
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('development'),
+        preventAssignment: true,
+      }),
+      eslint(),
+      resolve(),
+      ts(),
+    ],
     external,
   },
   {
@@ -36,6 +50,7 @@ export default [
         format: 'iife',
         name: 'Yanderetter',
         sourcemap: true,
+        globals,
       },
     ],
     plugins: [eslint(), ts()],
@@ -49,6 +64,7 @@ export default [
         format: 'iife',
         name: 'Yanderegram',
         sourcemap: true,
+        globals,
       },
     ],
     plugins: [eslint(), ts()],
@@ -62,6 +78,7 @@ export default [
         format: 'iife',
         name: 'Yanderegram',
         sourcemap: true,
+        globals,
       },
     ],
     plugins: [eslint(), ts()],
@@ -74,6 +91,7 @@ export default [
         file: 'dist/ui/ui.js',
         format: 'iife',
         sourcemap: true,
+        globals,
       },
     ],
     plugins: [
