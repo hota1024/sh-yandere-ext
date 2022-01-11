@@ -22,7 +22,9 @@ const decode = <T>(token: string): T | null => {
  */
 export type UserData = {
   uid: string
-  familyname: string
+  fullname: string
+  surname: string
+  name: string
 }
 
 /**

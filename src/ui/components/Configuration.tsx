@@ -52,7 +52,7 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
 
   const payload = decodeJWT(jwt)
   const uid = payload?.user.uid
-  const name = payload?.user.familyname
+  const name = payload?.user.fullname
 
   const loadConfig = async () => {
     const data = await config.get()
