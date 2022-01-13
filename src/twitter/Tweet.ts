@@ -20,9 +20,11 @@ export class Tweet {
    * @param url avatar URL.
    */
   setAvatarURL(url: string): void {
-    const el = this.avatar()
+    const img = this.avatarImg()
+    const div = this.avatarImgDiv()
 
-    el.style.backgroundImage = `url(${url})`
+    img.style.backgroundImage = `url(${url})`
+    div.style.backgroundImage = `url(${url})`
   }
 
   /**
@@ -77,10 +79,17 @@ export class Tweet {
   /**
    * returns avatar element.
    */
-  avatar(): HTMLElement {
-    return this.element.children[0].children[0].children[0].children[1]
-      .children[0].children[0].children[0].children[0].children[0].children[1]
-      .children[0].children[0] as HTMLElement
+  avatarImg(): HTMLElement {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this.element.querySelector('img')!
+  }
+
+  /**
+   * returns avatar img div delement.
+   */
+  avatarImgDiv(): HTMLElement {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return this.avatarImg().parentElement!.children[0] as HTMLElement
   }
 
   /**
