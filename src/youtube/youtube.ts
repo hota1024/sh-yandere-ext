@@ -1,5 +1,5 @@
 import { api } from '@/core/api'
-import { getMessagesInRange } from '@/core/messages'
+import { getMessagesInRange, replaceMessageTokens } from '@/core/messages'
 import { observeLocation } from '@/utils/observeLocation'
 import { randomPick } from '@/utils/randomPick'
 import { VideoItem } from './VideoItem'
@@ -7,7 +7,13 @@ import { VideoItem } from './VideoItem'
 const main = async () => {
   observeLocation((path: string) => {
     if (path.match(/youtube\.com\/?$/)) {
-      setTimeout(() => yanderecaTopPage(5), 1000)
+      setTimeout(() => {
+        try {
+          yanderecaTopPage(5)
+        } catch (e) {
+          console.error(e)
+        }
+      }, 1000)
     }
   })
 }
@@ -18,7 +24,8 @@ const getAllItem = () => [
 ]
 
 const yanderecaTopPage = async (count: number) => {
-  const progress = 0
+  const progress = await api.getProgress()
+
   const items = [getAllItem()[0]]
 
   for (let i = 0; i < count; i++) {
@@ -31,8 +38,7 @@ const yanderecaTopPage = async (count: number) => {
     }
 
     const messages = getMessagesInRange(progress)
-    const message = randomPick(messages).message
-    console.log(messages)
+    const message = await replaceMessageTokens(randomPick(messages).message)
 
     const v = new VideoItem(item)
     const yandereImage = browser.runtime.getURL('assets/yandere.png')
