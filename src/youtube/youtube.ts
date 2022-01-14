@@ -26,7 +26,7 @@ const getAllItem = () => [
 const yanderecaTopPage = async (count: number) => {
   const progress = await api.getProgress()
 
-  const items = [getAllItem()[0]]
+  const items = [randomPick(getAllItem())]
 
   for (let i = 0; i < count; i++) {
     items.push(randomPick(getAllItem()))
