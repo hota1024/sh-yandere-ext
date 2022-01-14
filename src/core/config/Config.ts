@@ -26,7 +26,7 @@ export class Config {
    */
   defaults(): ConfigData {
     return {
-      apiEndpoint: 'http://localhost:8080/',
+      apiEndpoint: 'http://api.yandereca.tech/',
       jwt: '',
       allowCommonYandere: false,
     }
