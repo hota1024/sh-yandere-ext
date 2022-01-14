@@ -85,6 +85,20 @@ export default [
     external,
   },
   {
+    input: 'src/common/common.ts',
+    output: [
+      {
+        file: 'dist/common/common.js',
+        format: 'iife',
+        name: 'YandereCommon',
+        sourcemap: true,
+        globals,
+      },
+    ],
+    plugins: [eslint(), ts()],
+    external,
+  },
+  {
     input: 'src/ui/ui.tsx',
     output: [
       {
