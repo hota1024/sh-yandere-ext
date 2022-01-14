@@ -49,6 +49,7 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
   const [apiEndpoint, setApiEndpoint] = useState('')
   const [jwt, setJWT] = useState<string>('')
   const [showJWT, setShowJWT] = useState(false)
+  const [allowCommonYandere, setAllowCommonYandere] = useState(false)
 
   const payload = decodeJWT(jwt)
   const uid = payload?.user.uid
@@ -58,6 +59,7 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
     const data = await config.get()
     setApiEndpoint(data.apiEndpoint)
     setJWT(data.jwt)
+    setAllowCommonYandere(data.allowCommonYandere)
   }
 
   useEffect(() => {
@@ -71,6 +73,10 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
   useEffect(() => {
     config.set({ jwt })
   }, [jwt])
+
+  useEffect(() => {
+    config.set({ allowCommonYandere })
+  }, [allowCommonYandere])
 
   const logout = () => {
     if (confirm(`${name} をログアウトしますか？`)) {
@@ -127,6 +133,14 @@ export const Configuration: React.VFC<ConfigurationProps> = (props) => {
         ) : (
           <Button onClick={openLogin}>Googleでログイン</Button>
         )}
+      </ConfigItem>
+      <ConfigItem>
+        <Label htmlFor="allowCommonYandere">
+          全てのページをヤンデレ化させる
+        </Label>
+        <Button onClick={() => setAllowCommonYandere(!allowCommonYandere)}>
+          {allowCommonYandere ? '無効化' : '有効化'}
+        </Button>
       </ConfigItem>
     </>
   )
