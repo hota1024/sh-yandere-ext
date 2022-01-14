@@ -1,7 +1,11 @@
 # Node.js
 node_modules/
 coverage/
+
+# Builds
 dist/
+firefox-build
+firefox-build.zip
 
 # OS
 .DS_Store
