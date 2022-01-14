@@ -4,6 +4,7 @@
 export type ConfigData = {
   apiEndpoint: string
   jwt: string
+  allowCommonYandere: boolean
 }
 
 /**
