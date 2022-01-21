@@ -1,7 +1,3 @@
-rm -rf firefox-build
-mkdir -p firefox-build/src/ui
-cp -r dist firefox-build/dist
-cp -r assets firefox-build/assets
-cp src/ui/ui.html firefox-build/src/ui/ui.html
-cp manifest.json firefox-build/manifest.json
-zip firefox-build firefox-build
+npm run build
+rm firefox-build.zip
+zip firefox-build.zip src/ui/ui.html manifest.json -r dist -r assets
